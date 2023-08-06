@@ -67,7 +67,7 @@ body{
 }
 .review-content
 {
- 
+margin-bottom: 0;
   overflow: hidden;
   text-overflow: ellipsis; 
   line-height: 1.4em;
@@ -76,15 +76,18 @@ body{
 }
 
 .review-content.expanded {
+  margin: 0;
   max-height: none;
 }
 .showlines
 {
   display: block;
+
 }
 .hidelines
 {
   display: none;
+
 }
 h2{
   color: aliceblue;
@@ -93,4 +96,20 @@ h2{
 {
   text-align: center;
 
+}
+button{
+  margin-bottom: 20px;
+}
+
+.reviews p{
+  margin-bottom: 0;
+}
+.me-2
+{
+  height: 38px;
+}
+.reviewauthor
+{
+  display: flex;
+  justify-content: space-between;
 }

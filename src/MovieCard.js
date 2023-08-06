@@ -37,53 +37,107 @@ const handleClose=()=>setShow(false)
 
 
   return (
+    <div className="card text-center bg-secondary mb-3">
+      <div className="card-body">
+        <div className="card-title">{title}</div>
+        <img className="card-img-top" src={IMG_URL + poster_path} alt="" />
+        <div className="card-body">
+          <button type="button" className="btn btn-dark" onClick={handleShow}>
+            View More
+          </button>
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton></Modal.Header>
+            <Modal.Body style={{ maxHeight: "70vh", overflowY: "auto" }}>
+              <img
+                className="card-image-top1"
+                src={IMG_URL + poster_path}
+                alt=""
+              />
+              <h3>{title}</h3>
+              <h4>IMDb : {vote_average}</h4>
+              <h5>Release Date: {release_date}</h5>
+              <br />
+              <h6>Overview :</h6>
+              <p>{overview}</p>
+              <h5>Reviews :</h5>
+              {review.length > 0 ? (
+                <div>
+                  {review.map((each) => (
+                    <div className="reviews" key={each.id}>
+                      <div className="reviewauthor">
+                        <h6>
+                          {each.author} <br />
+                          <span>
+                            <h8
+                              style={{
+                                fontStyle: "italic",
+                                textDecoration: "underline",
+                              }}
+                            >
+                              @{each.author_details.username}
+                            </h8>
+                          </span>
+                        </h6>
 
-    <div className='card text-center bg-secondary mb-3'>
-      <div className='card-body'>
-        <div className='card-title'>{title}</div>
-      <img className='card-img-top' src={IMG_URL+poster_path} alt='' />
-      <div className='card-body'>
-        <button type='button' className='btn btn-dark' onClick={handleShow}>View More</button>
-      <Modal show={show} onHide={handleClose}  >
-        <Modal.Header closeButton>
-
-        </Modal.Header>
-        <Modal.Body style={{ maxHeight:'70vh', overflowY:'auto'}}>
-           <img className='card-image-top1' src={IMG_URL+poster_path} alt='' />
-           <h3>{title}</h3>
-           <h4>IMDb : {vote_average}</h4>
-           <h5>Release Date: {release_date}</h5>
-           <br />
-           <h6>Overview :</h6>
-           <p>{overview}</p>
-           <h5>Reviews :</h5>
-          { review.map((each)=>(
-            <div key={each.id}>
-              <h6>{each.author}<span> <img 
-              style={{width:'30px', height:'30px', borderRadius:'10px'}} 
-              src={each.author_details.avatar_path
-                ? IMG_URL+each.author_details.avatar_path 
-                :avatarImage}
-                alt='avatar'></img></span></h6>
-              <p>{each.author_details.rating?each.author_details.rating +'/10':'no rating'}</p>
-              <p className={`review-content ${expandReview ? 'expanded' : ''}`}>{each.content} </p>
-              <span className={`${expandReview?'hidelines': 'showlines'}`}>...</span>
-              <button onClick={()=>expand()}>
-                {expandReview? 'View less':'View more'}
-              </button>
-            </div>
-           ))}
-        </Modal.Body>
-        <Modal.Footer >
-          <Button variant='secondary' onClick={handleClose}>Close</Button>
-        </Modal.Footer>
-      </Modal>
-
-      </div>
-    
+                        <span>
+                         
+                          <img
+                            style={{
+                              width: "50px",
+                              height: "50px",
+                              borderRadius: "25px",
+                              border: "1px solid black",
+                            }}
+                            src={
+                              each.author_details.avatar_path
+                                ? IMG_URL + each.author_details.avatar_path
+                                : avatarImage
+                            }
+                            alt="avatar"
+                          ></img>
+                        </span>
+                      </div>
+                      <p>
+                        Rating :{" "}
+                        {each.author_details.rating
+                          ? each.author_details.rating + "/10"
+                          : "Not reviewed"}
+                      </p>
+                      <p
+                        className={`review-content ${
+                          expandReview ? "expanded" : ""
+                        }`}
+                      >
+                        {each.content}{" "}
+                      </p>
+                      <span
+                        className={`${
+                          expandReview ? "hidelines" : "showlines"
+                        }`}
+                      >
+                        ...
+                      </span>
+                      <button onClick={() => expand()}>
+                        {expandReview ? "View less" : "View more"}
+                      </button>
+                      <div> </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div>No reviews added!!</div>
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </div>
+      </div>
     </div>
-  )
+  );
 }
 
 export default MovieCard

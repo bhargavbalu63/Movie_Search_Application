@@ -28,6 +28,7 @@ function App() {
   {
     setQuery(e.target.value)
   }
+
   const searchMovie= async(e)=>
   {
     e.preventDefault()
@@ -48,70 +49,84 @@ function App() {
   }
   return (
     <>
-    <Navbar  bg='dark' expand='lg' variant='dark'>
-      <Container fluid > 
-      <Navbar.Brand href='/home' style={{fontWeight:'bold'}} > Movie Search Application </Navbar.Brand>
-   
+      <Navbar bg="dark" expand="lg" variant="dark">
+        <Container fluid>
+          <Navbar.Brand href="/" style={{ fontWeight: "bold" }}>
+            {" "}
+            Movie Search Application{" "}
+          </Navbar.Brand>
 
-      <Navbar.Toggle  aria-controls='navbarScroll'></Navbar.Toggle>
-        <Navbar.Collapse  id='navbarScroll'>
-          <Nav
-          
-          className='me-auto my-2 my-lg-3'
-          style={{maxHeight:'100px'}}
-          navbarScroll>
- </Nav>
+          <Navbar.Toggle aria-controls="navbarScroll"></Navbar.Toggle>
+          <Navbar.Collapse id="navbarScroll">
+            <Nav
+              className="me-auto my-2 my-lg-3"
+              style={{ maxHeight: "100px" }}
+              navbarScroll
+            ></Nav>
 
- <div className="d-flex">
-    <Button className="me-3" onClick={() => setAPI_URL("https://api.themoviedb.org/3/movie/top_rated?api_key=b875e384d7d06c4bf5d9661539c8df14")}>Top rated</Button>
-    <Button className="me-3" onClick={() => setAPI_URL("https://api.themoviedb.org/3/movie/upcoming?api_key=b875e384d7d06c4bf5d9661539c8df14")}>Upcoming</Button>
-    <Button className="me-3" onClick={() => setAPI_URL("https://api.themoviedb.org/3/movie/now_playing?api_key=b875e384d7d06c4bf5d9661539c8df14")}>Now playing</Button>
-  </div>
-        <Form
-        onSubmit={searchMovie}
-         className='d-flex'>
-          <FormControl
-          
-          type='search'
-          placeholder='Movie search'
-          className='me-2'
-          aria-label='search'
-          name='query'
-          value={query}
-          onChange={changeHandler}
-          >
-            
-          </FormControl>
-          <Button type='submit' variant='secondary'>Search</Button>
-        </Form>
-         
-        </Navbar.Collapse>
+            <div className="d-flex">
+              <Button
+                className="me-3"
+                onClick={() =>
+                  setAPI_URL(
+                    "https://api.themoviedb.org/3/movie/top_rated?api_key=b875e384d7d06c4bf5d9661539c8df14"
+                  )
+                }
+              >
+                Top rated
+              </Button>
+              <Button
+                className="me-3"
+                onClick={() =>
+                  setAPI_URL(
+                    "https://api.themoviedb.org/3/movie/upcoming?api_key=b875e384d7d06c4bf5d9661539c8df14"
+                  )
+                }
+              >
+                Upcoming
+              </Button>
+              <Button
+                className="me-3"
+                onClick={() =>
+                  setAPI_URL(
+                    "https://api.themoviedb.org/3/movie/now_playing?api_key=b875e384d7d06c4bf5d9661539c8df14"
+                  )
+                }
+              >
+                Now playing
+              </Button>
+            </div>
+            <Form onSubmit={searchMovie} className="d-flex">
+              <FormControl
+                type="search"
+                placeholder="Movie search"
+                className="me-2"
+                aria-label="search"
+                name="query"
+                value={query}
+                onChange={changeHandler}
+              ></FormControl>
+              <Button type="submit" variant="secondary">
+                Search
+              </Button>
+            </Form>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
 
-      
-
-      </Container>
-
-
-
-    </Navbar>
-
-{movies.length>0 ?(
-    <div className="container">
-    <div className='grid'>
-    {movies.map((each)=>(
-  <MovieCard key={each.id} {...each} />
-))}
-    </div>
-
-
-  </div>
-):(
-  <div className='nomovies'>
-    <h2>Sorry !! No movies found</h2>
-  </div>
-)}
-
-  
+      {movies.length > 0 ? (
+        <div className="container">
+          <div className="grid">
+            {movies.map((each) => (
+              <MovieCard key={each.id} {...each} />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="nomovies">
+          <h2>Sorry !! No movies found</h2>
+        </div>
+      )}
     </>
   );
 }
