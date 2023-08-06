@@ -5,7 +5,7 @@ import './App.css';
 import MovieCard from './MovieCard';
 import { Container, Navbar , Nav, Form, FormControl, Button} from 'react-bootstrap';
 
-const API_SEARCH="https://api.themoviedb.org/3/search/movie?api_key=b875e384d7d06c4bf5d9661539c8df14&query"
+// const API_SEARCH="https://api.themoviedb.org/3/search/movie?api_key=b875e384d7d06c4bf5d9661539c8df14&query"
 
 function App() {
 
@@ -18,7 +18,9 @@ function App() {
   {
     fetch(API_URL).then((res)=>res.json()).then((data)=>{
       console.log(data.results);
-      setMovies(data.results)})
+      setMovies(data.results)
+    ;
+    })
 
   },[API_URL])
  
@@ -48,7 +50,7 @@ function App() {
     <>
     <Navbar  bg='dark' expand='lg' variant='dark'>
       <Container fluid > 
-      <Navbar.Brand href='/home'>Movie DB app</Navbar.Brand>
+      <Navbar.Brand href='/home' style={{fontWeight:'bold'}} > Movie Search Application </Navbar.Brand>
    
 
       <Navbar.Toggle  aria-controls='navbarScroll'></Navbar.Toggle>
@@ -104,7 +106,7 @@ function App() {
 
   </div>
 ):(
-  <div>
+  <div className='nomovies'>
     <h2>Sorry !! No movies found</h2>
   </div>
 )}

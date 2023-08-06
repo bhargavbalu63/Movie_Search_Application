@@ -1,5 +1,7 @@
 body{
   background-image: url('image.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .container
@@ -39,4 +41,56 @@ body{
 }
 .card.text-center.bg-secondary.mb-3 {
   border-radius: 20px;
+}
+@media  (max-width:441px){
+
+  .grid
+{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1.2em;
+  justify-content: center;
+
+}
+}
+
+@media (min-width:441px) and  (max-width:578px){
+
+  .grid
+{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1.2em;
+  justify-content: center;
+
+}
+}
+.review-content
+{
+ 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  line-height: 1.4em;
+  max-height: 4.2em;
+  transition: max-height 0.3s ease-out;
+}
+
+.review-content.expanded {
+  max-height: none;
+}
+.showlines
+{
+  display: block;
+}
+.hidelines
+{
+  display: none;
+}
+h2{
+  color: aliceblue;
+}
+.nomovies
+{
+  text-align: center;
+
 }
