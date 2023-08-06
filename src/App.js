@@ -52,8 +52,8 @@ function App() {
       <Navbar bg="dark" expand="lg" variant="dark">
         <Container fluid>
           <Navbar.Brand href="/" style={{ fontWeight: "bold" }}>
-            {" "}
-            Movie Search Application{" "}
+          
+            Movie Search Application
           </Navbar.Brand>
 
           <Navbar.Toggle aria-controls="navbarScroll"></Navbar.Toggle>
@@ -71,8 +71,7 @@ function App() {
                   setAPI_URL(
                     "https://api.themoviedb.org/3/movie/top_rated?api_key=b875e384d7d06c4bf5d9661539c8df14"
                   )
-                }
-              >
+                }>
                 Top rated
               </Button>
               <Button
