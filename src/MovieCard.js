@@ -65,7 +65,7 @@ const handleClose=()=>setShow(false)
                 ? IMG_URL+each.author_details.avatar_path 
                 :avatarImage}
                 alt='avatar'></img></span></h6>
-             
+              <p>{each.author_details.rating?each.author_details.rating +'/10':'no rating'}</p>
               <p className={`review-content ${expandReview ? 'expanded' : ''}`}>{each.content} </p>
               <span className={`${expandReview?'hidelines': 'showlines'}`}>...</span>
               <button onClick={()=>expand()}>
