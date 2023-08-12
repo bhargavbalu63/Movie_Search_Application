@@ -3,7 +3,33 @@ body{
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
+.d-flex1
+{
+  justify-content:space-between;
 
+  
+
+}
+/* .grid1{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1.2em;
+  justify-content: center;
+  max-height: 15.2em;
+  overflow: hidden;
+} */
+.actorlist {
+  display: flex;
+  flex-wrap: nowrap; /* Ensure no wrapping to maintain columns */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  overflow-y: auto; 
+}
+
+.grid1 {
+  display: flex;
+  flex-wrap: nowrap; /* Ensure no wrapping to maintain columns */
+  padding: 10px; 
+}
 .container
 {
   
@@ -72,7 +98,7 @@ margin-bottom: 0;
   text-overflow: ellipsis; 
   line-height: 1.4em;
   max-height: 4.2em;
-  transition: max-height 0.3s ease-out;
+  
 }
 
 .review-content.expanded {

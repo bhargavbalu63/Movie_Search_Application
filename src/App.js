@@ -1,9 +1,11 @@
 
+
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 import MovieCard from './MovieCard';
 import { Container, Navbar , Nav, Form, FormControl, Button} from 'react-bootstrap';
+
 
 // const API_SEARCH="https://api.themoviedb.org/3/search/movie?api_key=b875e384d7d06c4bf5d9661539c8df14&query"
 
@@ -16,6 +18,7 @@ function App() {
   
   useEffect(()=>
   {
+   
     fetch(API_URL).then((res)=>res.json()).then((data)=>{
       console.log(data.results);
       setMovies(data.results)
@@ -32,7 +35,7 @@ function App() {
   const searchMovie= async(e)=>
   {
     e.preventDefault()
-    console.log('search');
+ 
     try {
        const url=`https://api.themoviedb.org/3/search/movie?query=${query}&api_key=b875e384d7d06c4bf5d9661539c8df14`
        const res=await fetch(url)
@@ -78,20 +81,14 @@ function App() {
                 className="me-3"
                 onClick={() =>
                   setAPI_URL(
-                    "https://api.themoviedb.org/3/movie/upcoming?api_key=b875e384d7d06c4bf5d9661539c8df14"
-                  )
-                }
-              >
+                    "https://api.themoviedb.org/3/movie/upcoming?api_key=b875e384d7d06c4bf5d9661539c8df14") }>
                 Upcoming
               </Button>
               <Button
                 className="me-3"
                 onClick={() =>
                   setAPI_URL(
-                    "https://api.themoviedb.org/3/movie/now_playing?api_key=b875e384d7d06c4bf5d9661539c8df14"
-                  )
-                }
-              >
+                    "https://api.themoviedb.org/3/movie/now_playing?api_key=b875e384d7d06c4bf5d9661539c8df14")}>
                 Now playing
               </Button>
             </div>
@@ -112,20 +109,27 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      
+            {movies.length > 0 ? (
+              <div className="container">
+                <div className="grid">
+                  {movies.map((each) => (
+                    <MovieCard key={each.id} {...each} />
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="nomovies">
+                <h2>Sorry !! No movies found</h2>
+              </div>
 
-      {movies.length > 0 ? (
-        <div className="container">
-          <div className="grid">
-            {movies.map((each) => (
-              <MovieCard key={each.id} {...each} />
-            ))}
-          </div>
-        </div>
-      ) : (
-        <div className="nomovies">
-          <h2>Sorry !! No movies found</h2>
-        </div>
-      )}
+
+
+
+
+
+            )}
+
     </>
   );
 }

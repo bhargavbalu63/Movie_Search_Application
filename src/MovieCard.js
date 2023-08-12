@@ -1,8 +1,11 @@
 import { Button, Modal } from 'react-bootstrap'
-import {React, useState} from 'react'
+import React, {useState} from 'react'
 import './App.css';
 import avatarImage from './avatar.jpg'
+
 const IMG_URL="https://image.tmdb.org/t/p/w500/"
+
+
 
 const MovieCard = ({title, poster_path, vote_average, release_date,overview, id}) => {
    
@@ -11,8 +14,10 @@ const [show, setShow]= useState(false)
 
 const[ review, setReview]= useState([])
 
+const [actorList, setActorList]= useState([])
 
 const [expandReview, setExpandReview]=useState(false)
+
 
 
 const expand =()=>
@@ -23,12 +28,26 @@ const expand =()=>
     setExpandReview(true)
   }
 }
+
+
+
+
 const handleShow= async ()=>{
   const url =`https://api.themoviedb.org/3/movie/${id}/reviews?api_key=b875e384d7d06c4bf5d9661539c8df14`
+  const actorUrl= `https://api.themoviedb.org/3/movie/${id}/credits?api_key=b875e384d7d06c4bf5d9661539c8df14`
+
+const actorRes= await fetch(actorUrl)
+const actorData= await actorRes.json()
+setActorList(actorData.cast)
+  console.log(actorData.cast);
+  
   const res= await fetch(url)
   const data= await res.json()
-  console.log(data.results)
   setReview(data.results)
+
+  console.log(data.results)
+
+
   console.log(review);
   
   setShow(true)
@@ -45,7 +64,7 @@ const handleClose=()=>setShow(false)
           <button type="button" className="btn btn-dark" onClick={handleShow}>
             View More
           </button>
-          <Modal show={show} onHide={handleClose}>
+          <Modal  show={show} onHide={handleClose}>
             <Modal.Header closeButton></Modal.Header>
             <Modal.Body style={{ maxHeight: "70vh", overflowY: "auto" }}>
               <img
@@ -57,6 +76,32 @@ const handleClose=()=>setShow(false)
               <h4>IMDb : {vote_average}</h4>
               <h5>Release Date: {release_date}</h5>
               <br />
+              <div className='actorlist'>
+
+
+               <h4>Actor list:</h4> 
+
+                 <div className='grid1'>
+
+                
+                {actorList.map((each)=>
+                (
+                   <div className='d-flex1' key={each.id}>
+                   
+                 <img alt='' style={{height:'40px',width:'40px', borderRadius:'15px', marginRight:'20px'}} src={each.profile_path?IMG_URL + each.profile_path:avatarImage}></img>
+                 <div style={{marginRight:'20px'}}>
+                 {each.name} 
+                  </div>
+                
+                    </div>
+                ))
+                   
+                   }
+                </div>
+               
+              </div>
+          
+
               <h6>Overview :</h6>
               <p>{overview}</p>
               <h5>Reviews :</h5>
@@ -68,14 +113,14 @@ const handleClose=()=>setShow(false)
                         <h6>
                           {each.author} <br />
                           <span>
-                            <h8
+                            <h6
                               style={{
                                 fontStyle: "italic",
                                 textDecoration: "underline",
                               }}
                             >
                               @{each.author_details.username}
-                            </h8>
+                            </h6>
                           </span>
                         </h6>
 
@@ -120,7 +165,7 @@ const handleClose=()=>setShow(false)
                       <button onClick={() => expand()}>
                         {expandReview ? "View less" : "View more"}
                       </button>
-                      <div> </div>
+                     
                     </div>
                   ))}
                 </div>
