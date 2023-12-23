@@ -4,6 +4,7 @@ import './App.css';
 import avatarImage from './avatar.jpg'
 
 const IMG_URL="https://image.tmdb.org/t/p/w500/"
+const VIDEO_URL= 'https://youtube.com/embed/'
 
 
 
@@ -17,6 +18,8 @@ const[ review, setReview]= useState([])
 const [actorList, setActorList]= useState([])
 
 const [expandReview, setExpandReview]=useState(false)
+
+const [movieVideo, setMovieVideo]=useState('')
 
 
 
@@ -35,21 +38,35 @@ const expand =()=>
 const handleShow= async ()=>{
   const url =`https://api.themoviedb.org/3/movie/${id}/reviews?api_key=b875e384d7d06c4bf5d9661539c8df14`
   const actorUrl= `https://api.themoviedb.org/3/movie/${id}/credits?api_key=b875e384d7d06c4bf5d9661539c8df14`
+   const videoUrl= `https://api.themoviedb.org/3/movie/${id}/videos?api_key=b875e384d7d06c4bf5d9661539c8df14`
 
 const actorRes= await fetch(actorUrl)
 const actorData= await actorRes.json()
 setActorList(actorData.cast)
-  console.log(actorData.cast);
+  // console.log(actorData.cast);
   
   const res= await fetch(url)
   const data= await res.json()
   setReview(data.results)
 
-  console.log(data.results)
+  // console.log(data.results)
 
 
-  console.log(review);
+  // console.log(review);
   
+  const VideoRes= await fetch(videoUrl)
+  const VideoData= await VideoRes.json()
+//  console.log(VideoData.results[0].key);
+const keyExist= VideoData.results[0]
+if(keyExist.hasOwnProperty('key'))
+{
+  setMovieVideo(VideoData.results[0].key)
+}
+else{
+  setMovieVideo(null)
+}
+
+ console.log(movieVideo);
   setShow(true)
 }
 const handleClose=()=>setShow(false)
@@ -67,14 +84,21 @@ const handleClose=()=>setShow(false)
           <Modal  show={show} onHide={handleClose}>
             <Modal.Header closeButton></Modal.Header>
             <Modal.Body style={{ maxHeight: "70vh", overflowY: "auto" }}>
-              <img
+              <iframe
                 className="card-image-top1"
-                src={IMG_URL + poster_path}
+                
+               src={movieVideo?(VIDEO_URL + movieVideo):IMG_URL+poster_path}
                 alt=""
-              />
-              <h3>{title}</h3>
-              <h4>IMDb : {vote_average}</h4>
-              <h5>Release Date: {release_date}</h5>
+              ></iframe>
+
+
+              <div id='heading'>
+
+             
+              <center><h3><b>{title}</b></h3></center>
+              <center><h4>⭐ IMDb : {vote_average}</h4></center>
+              <center><h5>🔓 Release Date : {release_date}</h5></center>
+              </div>
               <br />
               <div className='actorlist'>
 
